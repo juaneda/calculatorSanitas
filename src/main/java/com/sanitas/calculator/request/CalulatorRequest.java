@@ -27,4 +27,9 @@ public class CalulatorRequest {
 	@NotNull
 	private String  operation;
 
+	@Override
+	public String toString() {
+		return  "CalulatorRequest:: param1 = "  +  param1 +  " param2 = " +  param2  +  " operation =" + operation;
+	}
+	
 }

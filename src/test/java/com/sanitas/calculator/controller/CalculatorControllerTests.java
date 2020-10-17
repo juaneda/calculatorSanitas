@@ -1,11 +1,15 @@
 package com.sanitas.calculator.controller;
 
+import static org.hamcrest.CoreMatchers.any;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -22,6 +26,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sanitas.calculator.CalculatorApplication;
 import com.sanitas.calculator.request.CalulatorRequest;
 import com.sanitas.calculator.response.CalculatorResponse;
+
+import io.corp.calculator.TracerImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = CalculatorApplication.class)
@@ -52,6 +58,7 @@ class CalculatorControllerTests {
 		assertEquals(200, status);
 		String json = mvcResult.getResponse().getContentAsString();
 		CalculatorResponse response = mapToObject(json);
+		
 		assertEquals(16, response.getResult().intValue());
 
 	}

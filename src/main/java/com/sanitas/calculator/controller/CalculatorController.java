@@ -16,6 +16,8 @@ import com.sanitas.calculator.request.CalulatorRequest;
 import com.sanitas.calculator.response.CalculatorResponse;
 import com.sanitas.calculator.service.impl.CalculatorServiceImpl;
 
+import io.corp.calculator.TracerImpl;
+
 
 @RestController
 @RequestMapping("/sanitas")
@@ -26,7 +28,10 @@ public class CalculatorController {
 	
 	@PostMapping(path="/calculate", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<CalculatorResponse>  calculate(@Valid @RequestBody CalulatorRequest request)  throws OperationNotValid {
+		TracerImpl tracer = new TracerImpl();
+		tracer.trace(request);
 		CalculatorResponse response = calculator.calculate(request);
+		tracer.trace(response);
 		return ResponseEntity.ok(response);
 	}
 	

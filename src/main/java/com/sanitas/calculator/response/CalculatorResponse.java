@@ -11,4 +11,8 @@ public class CalculatorResponse {
 	@Setter
 	private BigDecimal result;
 
+	@Override
+	public String toString () {
+			return "Resultado: " + result;
+	}
 }
