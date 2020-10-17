@@ -1,5 +1,7 @@
 package com.sanitas.calculator.request;
 
+import java.math.BigDecimal;
+
 import javax.validation.constraints.NotNull;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -13,12 +15,12 @@ public class CalulatorRequest {
 	@Getter
 	@Setter
 	@NotNull
-	private Integer param1;
+	private BigDecimal param1;
 	
 	@Getter
 	@Setter
 	@NotNull
-	private Integer param2;
+	private BigDecimal param2;
 	
 	@Getter
 	@Setter

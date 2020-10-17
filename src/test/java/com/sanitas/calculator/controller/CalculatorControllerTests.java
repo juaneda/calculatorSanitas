@@ -1,11 +1,11 @@
-package com.sanitas.calculator;
+package com.sanitas.calculator.controller;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
+import java.math.BigDecimal;
+
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -19,35 +19,28 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sanitas.calculator.CalculatorApplication;
 import com.sanitas.calculator.request.CalulatorRequest;
 import com.sanitas.calculator.response.CalculatorResponse;
-import com.sanitas.calculator.service.impl.CalculatorServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = CalculatorApplication.class)
 @WebAppConfiguration
-class CalculatorApplicationTests {
+class CalculatorControllerTests {
 
 	protected MockMvc mvc;
 
 	@Autowired
 	WebApplicationContext webApplicationContext;
-	
-	@Mock
-	CalculatorServiceImpl calculator;
 
-	@Test
-	void contextLoads() {
-		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-	}
 
 	@Test
 	public void testCalculate() throws Exception {
 		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		String uri = "/sanitas/calculate";
 		CalulatorRequest request = new CalulatorRequest();
-		request.setParam1(7);
-		request.setParam2(8);
+		request.setParam1(new BigDecimal(7));
+		request.setParam2(new BigDecimal(9));
 		request.setOperation("ADD");
 
 		String inputJson = mapToJson(request);
@@ -59,7 +52,7 @@ class CalculatorApplicationTests {
 		assertEquals(200, status);
 		String json = mvcResult.getResponse().getContentAsString();
 		CalculatorResponse response = mapToObject(json);
-		assertEquals(15, response.getResult().intValue());
+		assertEquals(16, response.getResult().intValue());
 
 	}
 	
@@ -68,7 +61,7 @@ class CalculatorApplicationTests {
 		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		String uri = "/sanitas/calculate";
 		CalulatorRequest request = new CalulatorRequest();
-		request.setParam2(8);
+		request.setParam2(new BigDecimal(7));
 		request.setOperation("ADD");
 
 		String inputJson = mapToJson(request);
@@ -86,7 +79,7 @@ class CalculatorApplicationTests {
 		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		String uri = "/sanitas/calculate";
 		CalulatorRequest request = new CalulatorRequest();
-		request.setParam1(8);
+		request.setParam1(new BigDecimal(7));
 		request.setOperation("ADD");
 
 		String inputJson = mapToJson(request);
@@ -104,8 +97,8 @@ class CalculatorApplicationTests {
 		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		String uri = "/sanitas/calculate";
 		CalulatorRequest request = new CalulatorRequest();
-		request.setParam1(8);
-		request.setParam2(8);
+		request.setParam1(new BigDecimal(7));
+		request.setParam2(new BigDecimal(7));
 
 		String inputJson = mapToJson(request);
 		MvcResult mvcResult = mvc.perform(
@@ -121,10 +114,6 @@ class CalculatorApplicationTests {
 	public void testCalculateWhenParam1IsNotNumber() throws Exception {
 		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		String uri = "/sanitas/calculate";
-		CalulatorRequest request = new CalulatorRequest();
-		request.setParam1(7);
-		request.setParam2(8);
-		request.setOperation("ADD");
 
 		String inputJson ="\"{\"param1\":\"valor\",\"param2\":8,\"operation\":\"ADD\"}\"";
 		MvcResult mvcResult = mvc.perform(
@@ -140,10 +129,6 @@ class CalculatorApplicationTests {
 	public void testCalculateWhenParam2IsNotNumber() throws Exception {
 		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		String uri = "/sanitas/calculate";
-		CalulatorRequest request = new CalulatorRequest();
-		request.setParam1(7);
-		request.setParam2(8);
-		request.setOperation("ADD");
 
 		String inputJson ="\"{\"param1\":4 ,\"param2\":\"valor\",\"operation\":\"ADD\"}\"";
 		MvcResult mvcResult = mvc.perform(
@@ -152,6 +137,27 @@ class CalculatorApplicationTests {
 
 		int status = mvcResult.getResponse().getStatus();
 		assertEquals(400, status);
+
+	}
+	
+	@Test
+	public void testCalculateNotValidOperation() throws Exception {
+		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+		String uri = "/sanitas/calculate";
+		CalulatorRequest request = new CalulatorRequest();
+		request.setParam1(new BigDecimal(7));
+		request.setParam2(new BigDecimal(9));
+		request.setOperation("ADDD");
+
+		String inputJson = mapToJson(request);
+		MvcResult mvcResult = mvc.perform(
+				MockMvcRequestBuilders.post(uri).contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson))
+				.andReturn();
+
+		int status = mvcResult.getResponse().getStatus();
+		assertEquals(400, status);
+		String response = mvcResult.getResponse().getContentAsString();
+		assertEquals("Operaion not valid: ADDD", response);
 
 	}
 
