@@ -1,0 +1,25 @@
+version: '3'
+services:
+  jedax-calculator:
+    image: jedax-calculator:latest
+    ports:
+      - 8080:80
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
