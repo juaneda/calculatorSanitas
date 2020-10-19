@@ -18,17 +18,17 @@ POST: {url}/sanitas/calculate
 }
 
 # Generacion .jar
-Intalar liberia externa en el repositorio de maven 
+Instalar liberia externa en el repositorio de maven 
 Para ello vamos a la raiz del proyecto y ejecutamos el siguiente comando maven
-mvn install:install-file -Dfile=libs/tracer-1.0.0.jar -DgroupId=com.tracer -DartifactId=tracer -Dversion=1.0.0 -Dpackaging=jar
+"mvn install:install-file -Dfile=libs/tracer-1.0.0.jar -DgroupId=com.tracer -DartifactId=tracer -Dversion=1.0.0 -Dpackaging=jar"
 
 
-Posteriormente ejecutar: mvn clean pakcage 
+Posteriormente ejecutar: "mvn clean pakcage"
 El jar se generará el dentro de la carpeta target el directorio del proyecto
-calculator/target/calculator-0.0.1-SNAPSHOT.jar
+calculatorSanitas/target/calculator-0.0.1-SNAPSHOT.jar
 
 # Imagen docker 
 Para levantar la imagen docker del servicio es necesario tener instalado en el sistema docker.
 Ejecutar en "mvn clean install" en la raiz del proyecto
 Ejecutar el comando "docker-compose up" en la raiz del proyecto
-Al levantar el microservicio en la consola se puede visualizar la ip que tiene asignada en el contenedor de docker (172.18.0.2)
+Al levantar el microservicio en la consola se puede visualizar la ip que tiene asignada en docker (172.18.0.2)
