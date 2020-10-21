@@ -17,6 +17,21 @@ POST: {url}/sanitas/calculate
     "result": 3
 }
 
+# Endopint List
+POST: {url}/sanitas/calculate/list
+
+
+# Body
+{
+  "params": [ "10", "3" , "2" ],
+  "operation": "-"
+}
+
+# Request
+{
+    "result": 5
+}
+
 # Generacion .jar
 Instalar liberia externa en el repositorio de maven <br/>
 Para ello vamos a la raiz del proyecto y ejecutamos el siguiente comando maven<br/>
