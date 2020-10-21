@@ -17,6 +17,7 @@ POST: {url}/sanitas/calculate
     "result": 3
 }
 
+# Realiza la suma/resta para un listado de parametros
 # Endopint List
 POST: {url}/sanitas/calculate/list
 
