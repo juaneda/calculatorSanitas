@@ -1,8 +1,8 @@
 package com.sanitas.calculator.service;
 
 import com.sanitas.calculator.exception.OperationNotValid;
-import com.sanitas.calculator.request.CalulatorListRequest;
-import com.sanitas.calculator.request.CalulatorRequest;
+import com.sanitas.calculator.request.CalculatorListRequest;
+import com.sanitas.calculator.request.CalculatorRequest;
 import com.sanitas.calculator.response.CalculatorResponse;
 
 
@@ -14,7 +14,7 @@ public interface CalculatorService {
 	 * @return
 	 * @throws OperationNotValid
 	 */
-	CalculatorResponse calculate (CalulatorRequest request) throws OperationNotValid ;
+	CalculatorResponse calculate (CalculatorRequest request) throws OperationNotValid ;
 	
 	/**
 	 * Realiza la operacion indicada en la request para un listado de parametros
@@ -22,6 +22,6 @@ public interface CalculatorService {
 	 * @return
 	 * @throws OperationNotValid
 	 */
-	CalculatorResponse calculate (CalulatorListRequest request) throws OperationNotValid ;
+	CalculatorResponse calculate (CalculatorListRequest request) throws OperationNotValid ;
 
 }

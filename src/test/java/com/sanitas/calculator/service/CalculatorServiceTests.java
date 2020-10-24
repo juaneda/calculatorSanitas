@@ -2,8 +2,11 @@ package com.sanitas.calculator.service;
 
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +14,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.sanitas.calculator.exception.OperationNotValid;
-import com.sanitas.calculator.request.CalulatorListRequest;
-import com.sanitas.calculator.request.CalulatorRequest;
+import com.sanitas.calculator.request.CalculatorListRequest;
+import com.sanitas.calculator.request.CalculatorRequest;
 import com.sanitas.calculator.response.CalculatorResponse;
 import com.sanitas.calculator.service.impl.CalculatorServiceImpl;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -34,7 +34,7 @@ class CalculatorServiceTests {
 	@Test
 	public void testCalculateServiceAdd() throws OperationNotValid  {
 
-		CalulatorRequest request = new CalulatorRequest();
+		CalculatorRequest request = new CalculatorRequest();
 		request.setOperation("+");
 		request.setParam1(new BigDecimal(11));
 		request.setParam2(new BigDecimal(13));
@@ -52,7 +52,7 @@ class CalculatorServiceTests {
 	@Test
 	public void testCalculateServiceSubtract() throws OperationNotValid {
 
-		CalulatorRequest request = new CalulatorRequest();
+		CalculatorRequest request = new CalculatorRequest();
 		request.setOperation("-");
 		request.setParam1(new BigDecimal(11));
 		request.setParam2(new BigDecimal(12));
@@ -69,7 +69,7 @@ class CalculatorServiceTests {
 	@Test
 	public void testCalculateServiceOperaionNotValid()  {
 		
-		CalulatorRequest request = new CalulatorRequest();
+		CalculatorRequest request = new CalculatorRequest();
 		request.setOperation("++");
 		request.setParam1(new BigDecimal(11));
 		request.setParam2(new BigDecimal(12));
@@ -85,7 +85,7 @@ class CalculatorServiceTests {
 	@Test
 	public void testCalculateServiceAddList() throws OperationNotValid  {
 
-		CalulatorListRequest request = new CalulatorListRequest();
+		CalculatorListRequest request = new CalculatorListRequest();
 		List<BigDecimal> params = new ArrayList<BigDecimal> ();
 		params.add(new BigDecimal(7));
 		params.add(new BigDecimal(8));
@@ -106,7 +106,7 @@ class CalculatorServiceTests {
 	@Test
 	public void testCalculateServiceSubtractList() throws OperationNotValid  {
 
-		CalulatorListRequest request = new CalulatorListRequest();
+		CalculatorListRequest request = new CalculatorListRequest();
 		List<BigDecimal> params = new ArrayList<BigDecimal> ();
 		params.add(new BigDecimal(17));
 		params.add(new BigDecimal(8));
@@ -126,7 +126,7 @@ class CalculatorServiceTests {
 	@Test
 	public void testCalculateServiceListOperaionNotValid()  {
 		
-		CalulatorListRequest request = new CalulatorListRequest();
+		CalculatorListRequest request = new CalculatorListRequest();
 		List<BigDecimal> params = new ArrayList<BigDecimal> ();
 		params.add(new BigDecimal(17));
 		params.add(new BigDecimal(8));

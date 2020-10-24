@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @EntityScan
-public class CalulatorListRequest {
+public class CalculatorListRequest {
 	
 	@Getter
 	@Setter

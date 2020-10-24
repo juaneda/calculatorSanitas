@@ -22,8 +22,8 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sanitas.calculator.CalculatorApplication;
-import com.sanitas.calculator.request.CalulatorListRequest;
-import com.sanitas.calculator.request.CalulatorRequest;
+import com.sanitas.calculator.request.CalculatorListRequest;
+import com.sanitas.calculator.request.CalculatorRequest;
 import com.sanitas.calculator.response.CalculatorResponse;
 
 /**
@@ -53,7 +53,7 @@ class CalculatorControllerTests {
 	public void testCalculate() throws Exception {
 		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		String uri = "/sanitas/calculate";
-		CalulatorRequest request = new CalulatorRequest();
+		CalculatorRequest request = new CalculatorRequest();
 		request.setParam1(new BigDecimal(7));
 		request.setParam2(new BigDecimal(9));
 		request.setOperation("+");
@@ -80,7 +80,7 @@ class CalculatorControllerTests {
 	public void testCalculateWhenParam1IsNullTest() throws Exception {
 		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		String uri = "/sanitas/calculate";
-		CalulatorRequest request = new CalulatorRequest();
+		CalculatorRequest request = new CalculatorRequest();
 		request.setParam2(new BigDecimal(7));
 		request.setOperation("+");
 
@@ -102,7 +102,7 @@ class CalculatorControllerTests {
 	public void testCalculateWhenParam2IsNullTest() throws Exception {
 		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		String uri = "/sanitas/calculate";
-		CalulatorRequest request = new CalulatorRequest();
+		CalculatorRequest request = new CalculatorRequest();
 		request.setParam1(new BigDecimal(7));
 		request.setOperation("+");
 
@@ -124,7 +124,7 @@ class CalculatorControllerTests {
 	public void testCalculateWhenOperationIsNullTest() throws Exception {
 		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		String uri = "/sanitas/calculate";
-		CalulatorRequest request = new CalulatorRequest();
+		CalculatorRequest request = new CalculatorRequest();
 		request.setParam1(new BigDecimal(7));
 		request.setParam2(new BigDecimal(7));
 
@@ -184,7 +184,7 @@ class CalculatorControllerTests {
 	public void testCalculateNotValidOperation() throws Exception {
 		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		String uri = "/sanitas/calculate";
-		CalulatorRequest request = new CalulatorRequest();
+		CalculatorRequest request = new CalculatorRequest();
 		request.setParam1(new BigDecimal(7));
 		request.setParam2(new BigDecimal(9));
 		request.setOperation("++");
@@ -197,7 +197,7 @@ class CalculatorControllerTests {
 		int status = mvcResult.getResponse().getStatus();
 		assertEquals(400, status);
 		String response = mvcResult.getResponse().getContentAsString();
-		assertEquals("Operaion not valid: ++", response);
+		assertEquals("Operation not valid: ++", response);
 
 	}
 
@@ -210,7 +210,7 @@ class CalculatorControllerTests {
 	public void testCalculateList() throws Exception {
 		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		String uri = "/sanitas/calculate/list";
-		CalulatorListRequest request = new CalulatorListRequest();
+		CalculatorListRequest request = new CalculatorListRequest();
 		List<BigDecimal> params = new ArrayList<BigDecimal> ();
 		params.add(new BigDecimal(7));
 		params.add(new BigDecimal(8));
@@ -269,7 +269,7 @@ class CalculatorControllerTests {
 		assertEquals(400, status);
 		
 		String response = mvcResult.getResponse().getContentAsString();
-		assertEquals("Operaion not valid: ++", response);
+		assertEquals("Operation not valid: ++", response);
 
 	}
 	
